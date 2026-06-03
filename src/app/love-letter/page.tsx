@@ -1,0 +1,218 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
+import { loveLetterCode } from '@/data/content';
+import { FiPlay, FiPause, FiRewind } from 'react-icons/fi';
+
+// 简易语法高亮
+function highlightCode(code: string): string {
+  return code
+    // 注释
+    .replace(/(\/\/.*)/g, '<span class="text-gray-400 italic">$1</span>')
+    // 字符串
+    .replace(/('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*`)/g, '<span class="text-emerald-400">$1</span>')
+    // 关键字
+    .replace(/\b(class|const|let|var|new|return|if|while|async|await|function|true|false|Infinity|this)\b/g, '<span class="text-purple-400 font-medium">$1</span>')
+    // 数字
+    .replace(/\b(\d+)\b/g, '<span class="text-amber-300">$1</span>')
+    // 方法名
+    .replace(/\.(\w+)\(/g, '.<span class="text-sky-300">$1</span>(')
+    // 类名
+    .replace(/\b([A-Z]\w+)\b/g, '<span class="text-yellow-300">$1</span>');
+}
+
+export default function LoveLetterPage() {
+  const [displayedLines, setDisplayedLines] = useState<string[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const codeLines = loveLetterCode.split('\n');
+  const containerRef = useRef<HTMLDivElement>(null);
+  const pauseRef = useRef(false);
+
+  const startTyping = () => {
+    setDisplayedLines([]);
+    setIsTyping(true);
+    setIsPaused(false);
+    pauseRef.current = false;
+    let lineIndex = 0;
+
+    const typeLine = () => {
+      if (pauseRef.current) return;
+      if (lineIndex >= codeLines.length) {
+        setIsTyping(false);
+        return;
+      }
+
+      setDisplayedLines((prev) => [...prev, codeLines[lineIndex]]);
+      lineIndex++;
+
+      // 自动滚动到底部
+      setTimeout(() => {
+        if (containerRef.current) {
+          containerRef.current.scrollTop = containerRef.current.scrollHeight;
+        }
+      }, 10);
+
+      setTimeout(typeLine, 50 + Math.random() * 80);
+    };
+
+    typeLine();
+  };
+
+  const togglePause = () => {
+    if (!isTyping) return;
+    const newPaused = !isPaused;
+    setIsPaused(newPaused);
+    pauseRef.current = newPaused;
+
+    if (!newPaused) {
+      // 恢复打字
+      const currentLength = displayedLines.length;
+      let lineIndex = currentLength;
+
+      const typeLine = () => {
+        if (pauseRef.current) return;
+        if (lineIndex >= codeLines.length) {
+          setIsTyping(false);
+          return;
+        }
+
+        setDisplayedLines((prev) => [...prev, codeLines[lineIndex]]);
+        lineIndex++;
+
+        setTimeout(() => {
+          if (containerRef.current) {
+            containerRef.current.scrollTop = containerRef.current.scrollHeight;
+          }
+        }, 10);
+
+        setTimeout(typeLine, 50 + Math.random() * 80);
+      };
+
+      typeLine();
+    }
+  };
+
+  useEffect(() => {
+    // 自动开始打字
+    const timer = setTimeout(startTyping, 800);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <div className="min-h-screen pt-24 md:pt-28 pb-32 md:pb-20">
+      <div className="max-w-4xl mx-auto px-4 md:px-6">
+        {/* 页面标题 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-10"
+        >
+          <motion.div
+            animate={{ y: [0, -5, 0] }}
+            transition={{ repeat: Infinity, duration: 2.5 }}
+            className="text-5xl mb-4"
+          >
+            💻
+          </motion.div>
+          <h1 className="text-3xl md:text-4xl font-bold text-gradient mb-3">程序员情书</h1>
+          <p className="text-gray-400">用代码写给你的情书，每一行都是真心</p>
+        </motion.div>
+
+        {/* 代码编辑器 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="rounded-2xl overflow-hidden shadow-2xl shadow-primary-200/10"
+        >
+          {/* 编辑器标题栏 */}
+          <div className="bg-gray-800 px-4 py-3 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-red-400" />
+              <div className="w-3 h-3 rounded-full bg-yellow-400" />
+              <div className="w-3 h-3 rounded-full bg-green-400" />
+            </div>
+            <span className="text-gray-400 text-xs font-mono">love_letter.js</span>
+            <div className="flex items-center gap-2">
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={startTyping}
+                className="text-gray-400 hover:text-white transition-colors"
+                title="重新播放"
+              >
+                <FiRewind className="w-4 h-4" />
+              </motion.button>
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={togglePause}
+                className="text-gray-400 hover:text-white transition-colors"
+                title={isPaused ? '继续' : '暂停'}
+              >
+                {isPaused ? (
+                  <FiPlay className="w-4 h-4" />
+                ) : (
+                  <FiPause className="w-4 h-4" />
+                )}
+              </motion.button>
+            </div>
+          </div>
+
+          {/* 代码区域 */}
+          <div
+            ref={containerRef}
+            className="bg-gray-900 p-4 md:p-6 overflow-auto max-h-[60vh] md:max-h-[70vh]"
+          >
+            <pre className="font-mono text-sm md:text-base leading-relaxed">
+              {displayedLines.map((line, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex"
+                >
+                  <span className="text-gray-600 w-8 md:w-10 text-right mr-4 select-none flex-shrink-0">
+                    {i + 1}
+                  </span>
+                  <span
+                    className="text-gray-200 flex-1"
+                    dangerouslySetInnerHTML={{ __html: highlightCode(line) || '&nbsp;' }}
+                  />
+                </motion.div>
+              ))}
+              {isTyping && (
+                <motion.span
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ repeat: Infinity, duration: 0.5 }}
+                  className="text-primary-400 ml-12"
+                >
+                  ▊
+                </motion.span>
+              )}
+            </pre>
+          </div>
+        </motion.div>
+
+        {/* 底部说明 */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
+          className="text-center mt-8"
+        >
+          <div className="glass rounded-2xl p-6 inline-block">
+            <p className="text-gray-500 text-sm">
+              💡 这封情书用 <span className="text-purple-400 font-medium">JavaScript</span> 写成，
+              每一行代码都是我对你的告白
+            </p>
+            <p className="text-gray-400 text-xs mt-2">
+              while(true) {'{'} love(you); {'}'} — 爱你是一个无限循环
+            </p>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
