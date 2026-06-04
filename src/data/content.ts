@@ -11,7 +11,7 @@ export const timelineData = [
     id: 2,
     date: '2021.09.01',
     title: '第一次一起开学',
-    description: '新的学期，因为有你，每一天都充满了期待。',
+    description: '假期的矛盾分不开我们。',
     image: '/images/2.jpg',
     icon: '📚',
   },
@@ -59,7 +59,7 @@ export const timelineData = [
     id: 8,
     date: '2023.12.31',
     title: '跨年夜',
-    description: '和你一起倒数迎接新年，是我最想要的跨年方式。',
+    description: '从老家走到德江，是我最想要和你跨年的决心。',
     image: '/images/8.jpg',
     icon: '🎆',
   },
@@ -98,18 +98,18 @@ export const timelineData = [
 ];
 
 export const galleryData = [
-  { id: 1, src: '/images/1.jpg', caption: '你笑起来真好看', height: 'tall' },
+  { id: 1, src: '/images/1.jpg', caption: '飞飞笑起来真好看', height: 'tall' },
   { id: 2, src: '/images/2.jpg', caption: '和你一起的每个瞬间', height: 'short' },
-  { id: 3, src: '/images/3.jpg', caption: '最爱的你', height: 'medium' },
-  { id: 4, src: '/images/4.jpg', caption: '我们的日常', height: 'tall' },
+  { id: 3, src: '/images/3.jpg', caption: '爬山拍照擤鼻涕', height: 'medium' },
+  { id: 4, src: '/images/4.jpg', caption: '喜欢宝宝这张照片', height: 'tall' },
   { id: 5, src: '/images/5.jpg', caption: '你的眼睛像星星', height: 'short' },
   { id: 6, src: '/images/6.jpg', caption: '一起走过的路', height: 'medium' },
   { id: 7, src: '/images/7.jpg', caption: '永远牵着手', height: 'tall' },
-  { id: 8, src: '/images/8.jpg', caption: '你是我最甜的bug', height: 'short' },
-  { id: 9, src: '/images/9.jpg', caption: '余生请多指教', height: 'medium' },
+  { id: 8, src: '/images/8.jpg', caption: '一起在小胡子过生日', height: 'short' },
+  { id: 9, src: '/images/9.jpg', caption: '一起去老王山的路上', height: 'medium' },
   { id: 10, src: '/images/10.jpg', caption: '最好的我们', height: 'tall' },
   { id: 11, src: '/images/1.jpg', caption: '你是我最想commit的人', height: 'short' },
-  { id: 12, src: '/images/2.jpg', caption: '第五个夏天', height: 'medium' },
+  { id: 12, src: '/images/2.jpg', caption: '没照片了', height: 'medium' },
 ];
 
 // 程序员情书代码
