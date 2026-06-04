@@ -52,10 +52,11 @@ export default function GalleryPage() {
                 <div
                   className={`relative bg-gradient-to-br from-primary-50 to-purple-50 ${heightMap[photo.height as keyof typeof heightMap]} flex items-center justify-center overflow-hidden`}
                 >
-                  <div className="text-center">
-                    <FiHeart className="w-10 h-10 text-primary-200 mx-auto mb-2" />
-                    <p className="text-xs text-gray-300">照片 {photo.id}</p>
-                  </div>
+                  <img
+                    src={photo.src}
+                    alt={photo.caption}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
 
                   {/* 悬停遮罩 */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -102,12 +103,12 @@ export default function GalleryPage() {
               </button>
 
               <div className="glass rounded-3xl overflow-hidden shadow-2xl">
-                <div className="aspect-video bg-gradient-to-br from-primary-50 to-purple-100 flex items-center justify-center">
-                  <div className="text-center">
-                    <FiHeart className="w-16 h-16 text-primary-200 mx-auto mb-3" />
-                    <p className="text-gray-300">照片 {selectedPhoto.id}</p>
-                    <p className="text-xs text-gray-300 mt-1">替换为你们的合照</p>
-                  </div>
+                <div className="aspect-video bg-gradient-to-br from-primary-50 to-purple-100 flex items-center justify-center relative overflow-hidden">
+                  <img
+                    src={selectedPhoto.src}
+                    alt={selectedPhoto.caption}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
                 </div>
                 <div className="p-6 text-center">
                   <p className="text-lg text-gray-600 italic">

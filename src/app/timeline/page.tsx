@@ -77,12 +77,13 @@ export default function TimelinePage() {
                     {item.description}
                   </p>
 
-                  {/* 照片占位 */}
+                  {/* 照片 */}
                   <div className="relative rounded-xl overflow-hidden bg-gradient-to-br from-primary-50 to-purple-50 aspect-video flex items-center justify-center">
-                    <div className="text-center">
-                      <FiHeart className="w-8 h-8 text-primary-200 mx-auto mb-1" />
-                      <p className="text-xs text-gray-300">替换为你们的照片</p>
-                    </div>
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
                   </div>
                 </motion.div>
               </motion.div>

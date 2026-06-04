@@ -194,19 +194,19 @@ export const musicList = [
     id: 1,
     title: '我们的歌',
     artist: '专属回忆',
-    src: '/music/1.mgg',
+    src: '/music/1.mp3',
   },
   {
     id: 2,
     title: '小幸运',
     artist: '田馥甄',
-    src: '/music/2.mgg',
+    src: '/music/2.mp3',
   },
   {
     id: 3,
     title: '告白气球',
     artist: '周杰伦',
-    src: '/music/3.mgg',
+    src: '/music/3.mp3',
   },
 ];
 
