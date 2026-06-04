@@ -1,11 +1,10 @@
-// 时间线数据 - 替换为你自己的故事
 export const timelineData = [
   {
     id: 1,
     date: '2021.07.05',
     title: '我们的开始',
     description: '那一天，你走进了我的世界，从此我的代码里多了一个最美好的变量。',
-    image: '/images/timeline-1.jpg',
+    image: '/images/1.jpg',
     icon: '💕',
   },
   {
@@ -13,7 +12,7 @@ export const timelineData = [
     date: '2021.09.01',
     title: '第一次一起开学',
     description: '新的学期，因为有你，每一天都充满了期待。',
-    image: '/images/timeline-2.jpg',
+    image: '/images/2.jpg',
     icon: '📚',
   },
   {
@@ -21,7 +20,7 @@ export const timelineData = [
     date: '2021.12.25',
     title: '第一个圣诞节',
     description: '和你在一起的每个节日，都像是程序运行成功的提示音一样让人开心。',
-    image: '/images/timeline-3.jpg',
+    image: '/images/3.jpg',
     icon: '🎄',
   },
   {
@@ -29,7 +28,7 @@ export const timelineData = [
     date: '2022.02.14',
     title: '第一个情人节',
     description: '你是我写过最浪漫的代码，每一行都是心动。',
-    image: '/images/timeline-4.jpg',
+    image: '/images/4.jpg',
     icon: '💝',
   },
   {
@@ -37,7 +36,7 @@ export const timelineData = [
     date: '2022.07.05',
     title: '一周年纪念',
     description: '365天的陪伴，我们的故事才刚刚开始。',
-    image: '/images/timeline-5.jpg',
+    image: '/images/5.jpg',
     icon: '🎂',
   },
   {
@@ -45,7 +44,7 @@ export const timelineData = [
     date: '2022.10.01',
     title: '第一次旅行',
     description: '和你一起看世界，每一处风景都因为有你而更加美丽。',
-    image: '/images/timeline-6.jpg',
+    image: '/images/6.jpg',
     icon: '✈️',
   },
   {
@@ -53,7 +52,7 @@ export const timelineData = [
     date: '2023.07.05',
     title: '两周年纪念',
     description: '两年的时光，我们共同debug了生活中的每一个难题。',
-    image: '/images/timeline-7.jpg',
+    image: '/images/7.jpg',
     icon: '🎉',
   },
   {
@@ -61,7 +60,7 @@ export const timelineData = [
     date: '2023.12.31',
     title: '跨年夜',
     description: '和你一起倒数迎接新年，是我最想要的跨年方式。',
-    image: '/images/timeline-8.jpg',
+    image: '/images/8.jpg',
     icon: '🎆',
   },
   {
@@ -69,7 +68,7 @@ export const timelineData = [
     date: '2024.07.05',
     title: '三周年纪念',
     description: '三年了，我们的commit记录已经写满了爱的日志。',
-    image: '/images/timeline-9.jpg',
+    image: '/images/9.jpg',
     icon: '🌟',
   },
   {
@@ -77,7 +76,7 @@ export const timelineData = [
     date: '2024.11.11',
     title: '光棍节也快乐',
     description: '有你的光棍节，比任何节日都甜蜜。',
-    image: '/images/timeline-10.jpg',
+    image: '/images/10.jpg',
     icon: '🍬',
   },
   {
@@ -85,7 +84,7 @@ export const timelineData = [
     date: '2025.07.05',
     title: '四周年纪念',
     description: '四年了，我们的爱就像一个永不宕机的服务器，稳定而温暖。',
-    image: '/images/timeline-11.jpg',
+    image: '/images/1.jpg',
     icon: '🎊',
   },
   {
@@ -93,25 +92,24 @@ export const timelineData = [
     date: '2026.07.05',
     title: '五周年 · 我们的第五个夏天',
     description: '五年，1826天，43824小时，每一秒都是你。我们的故事，还在继续...',
-    image: '/images/timeline-12.jpg',
+    image: '/images/2.jpg',
     icon: '🌸',
   },
 ];
 
-// 照片墙数据 - 替换为你自己的照片
 export const galleryData = [
-  { id: 1, src: '/images/photo-1.jpg', caption: '你笑起来真好看', height: 'tall' },
-  { id: 2, src: '/images/photo-2.jpg', caption: '和你一起的每个瞬间', height: 'short' },
-  { id: 3, src: '/images/photo-3.jpg', caption: '最爱的你', height: 'medium' },
-  { id: 4, src: '/images/photo-4.jpg', caption: '我们的日常', height: 'tall' },
-  { id: 5, src: '/images/photo-5.jpg', caption: '你的眼睛像星星', height: 'short' },
-  { id: 6, src: '/images/photo-6.jpg', caption: '一起走过的路', height: 'medium' },
-  { id: 7, src: '/images/photo-7.jpg', caption: '永远牵着手', height: 'tall' },
-  { id: 8, src: '/images/photo-8.jpg', caption: '你是我最甜的bug', height: 'short' },
-  { id: 9, src: '/images/photo-9.jpg', caption: '余生请多指教', height: 'medium' },
-  { id: 10, src: '/images/photo-10.jpg', caption: '最好的我们', height: 'tall' },
-  { id: 11, src: '/images/photo-11.jpg', caption: '你是我最想commit的人', height: 'short' },
-  { id: 12, src: '/images/photo-12.jpg', caption: '第五个夏天', height: 'medium' },
+  { id: 1, src: '/images/1.jpg', caption: '你笑起来真好看', height: 'tall' },
+  { id: 2, src: '/images/2.jpg', caption: '和你一起的每个瞬间', height: 'short' },
+  { id: 3, src: '/images/3.jpg', caption: '最爱的你', height: 'medium' },
+  { id: 4, src: '/images/4.jpg', caption: '我们的日常', height: 'tall' },
+  { id: 5, src: '/images/5.jpg', caption: '你的眼睛像星星', height: 'short' },
+  { id: 6, src: '/images/6.jpg', caption: '一起走过的路', height: 'medium' },
+  { id: 7, src: '/images/7.jpg', caption: '永远牵着手', height: 'tall' },
+  { id: 8, src: '/images/8.jpg', caption: '你是我最甜的bug', height: 'short' },
+  { id: 9, src: '/images/9.jpg', caption: '余生请多指教', height: 'medium' },
+  { id: 10, src: '/images/10.jpg', caption: '最好的我们', height: 'tall' },
+  { id: 11, src: '/images/1.jpg', caption: '你是我最想commit的人', height: 'short' },
+  { id: 12, src: '/images/2.jpg', caption: '第五个夏天', height: 'medium' },
 ];
 
 // 程序员情书代码
