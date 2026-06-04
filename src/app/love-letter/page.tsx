@@ -32,7 +32,7 @@ function highlightCode(code: string): string {
 }
 
 export default function LoveLetterPage() {
-  const [displayedLines, setDisplayedLines] = useState<string[]>([]);
+  const [displayedLines, setDisplayedLines] = useState<number>(0);
   const [isTyping, setIsTyping] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const codeLines = loveLetterCode.split('\n');
@@ -40,23 +40,20 @@ export default function LoveLetterPage() {
   const pauseRef = useRef(false);
 
   const startTyping = () => {
-    setDisplayedLines([]);
+    setDisplayedLines(0);
     setIsTyping(true);
     setIsPaused(false);
     pauseRef.current = false;
-    let lineIndex = 0;
 
     const typeLine = () => {
       if (pauseRef.current) return;
-      if (lineIndex >= codeLines.length) {
+      if (displayedLines >= codeLines.length) {
         setIsTyping(false);
         return;
       }
 
-      setDisplayedLines((prev) => [...prev, codeLines[lineIndex]]);
-      lineIndex++;
+      setDisplayedLines((prev) => prev + 1);
 
-      // 自动滚动到底部
       setTimeout(() => {
         if (containerRef.current) {
           containerRef.current.scrollTop = containerRef.current.scrollHeight;
@@ -74,40 +71,33 @@ export default function LoveLetterPage() {
     const newPaused = !isPaused;
     setIsPaused(newPaused);
     pauseRef.current = newPaused;
-
-    if (!newPaused) {
-      // 恢复打字
-      const currentLength = displayedLines.length;
-      let lineIndex = currentLength;
-
-      const typeLine = () => {
-        if (pauseRef.current) return;
-        if (lineIndex >= codeLines.length) {
-          setIsTyping(false);
-          return;
-        }
-
-        setDisplayedLines((prev) => [...prev, codeLines[lineIndex]]);
-        lineIndex++;
-
-        setTimeout(() => {
-          if (containerRef.current) {
-            containerRef.current.scrollTop = containerRef.current.scrollHeight;
-          }
-        }, 10);
-
-        setTimeout(typeLine, 50 + Math.random() * 80);
-      };
-
-      typeLine();
-    }
   };
 
   useEffect(() => {
-    // 自动开始打字
     const timer = setTimeout(startTyping, 800);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (!isPaused && isTyping && displayedLines < codeLines.length && !pauseRef.current) {
+      const timer = setTimeout(() => {
+        setDisplayedLines((prev) => {
+          if (prev >= codeLines.length) {
+            setIsTyping(false);
+            return prev;
+          }
+          return prev + 1;
+        });
+      }, 50 + Math.random() * 80);
+      return () => clearTimeout(timer);
+    }
+  }, [displayedLines, isTyping, isPaused]);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [displayedLines]);
 
   return (
     <div className="min-h-screen pt-24 md:pt-28 pb-32 md:pb-20">
@@ -174,7 +164,7 @@ export default function LoveLetterPage() {
             className="bg-gray-900 p-4 md:p-6 overflow-auto max-h-[60vh] md:max-h-[70vh]"
           >
             <pre className="font-mono text-sm md:text-base leading-relaxed">
-              {displayedLines.map((line, i) => (
+              {codeLines.slice(0, displayedLines).map((line, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: -10 }}
@@ -185,10 +175,9 @@ export default function LoveLetterPage() {
                   <span className="text-gray-600 w-8 md:w-10 text-right mr-4 select-none flex-shrink-0">
                     {i + 1}
                   </span>
-                  <span
-                    className="text-gray-200 flex-1"
-                    dangerouslySetInnerHTML={{ __html: highlightCode(line) || '&nbsp;' }}
-                  />
+                  <span className="text-gray-200 flex-1 whitespace-pre">
+                    {line || '\u00A0'}
+                  </span>
                 </motion.div>
               ))}
               {isTyping && (
