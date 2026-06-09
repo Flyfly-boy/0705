@@ -1,3 +1,8 @@
+type KVNamespace = {
+  get: (key: string, type?: 'json') => Promise<string | null | unknown>;
+  put: (key: string, value: string) => Promise<void>;
+};
+
 interface Env {
   MESSAGES: KVNamespace;
 }
