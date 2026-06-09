@@ -7,25 +7,23 @@ import { FiPlay, FiPause, FiRewind } from 'react-icons/fi';
 
 // 单次遍历语法高亮，避免正则冲突
 function highlightCode(code: string): string {
-  // 先转义 HTML 实体
   const escaped = code
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
 
-  // 单次遍历，用捕获组区分不同 token 类型
   const tokenPattern =
     /(\/\/[^\n]*)|('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*`)|(\b(?:class|const|let|var|new|return|if|while|async|await|function|true|false|Infinity|this)\b)|(\b\d+\b)|(\.\w+\()|(\b[A-Z]\w+\b)/g;
 
   return escaped.replace(
     tokenPattern,
     (match, comment, str, keyword, number, method, className) => {
-      if (comment !== undefined) return `<span class="text-gray-400 italic">${match}</span>`;
-      if (str !== undefined) return `<span class="text-emerald-400">${match}</span>`;
-      if (keyword !== undefined) return `<span class="text-purple-400 font-medium">${match}</span>`;
-      if (number !== undefined) return `<span class="text-amber-300">${match}</span>`;
-      if (method !== undefined) return `.<span class="text-sky-300">${match.slice(1, -1)}</span>(`;
-      if (className !== undefined) return `<span class="text-yellow-300">${match}</span>`;
+      if (comment !== undefined) return `<span style="color:#9ca3af;font-style:italic">${match}</span>`;
+      if (str !== undefined) return `<span style="color:#34d399">${match}</span>`;
+      if (keyword !== undefined) return `<span style="color:#c084fc;font-weight:500">${match}</span>`;
+      if (number !== undefined) return `<span style="color:#fbbf24">${match}</span>`;
+      if (method !== undefined) return `.<span style="color:#38bdf8">${match.slice(1, -1)}</span>(`;
+      if (className !== undefined) return `<span style="color:#fde047">${match}</span>`;
       return match;
     }
   );
@@ -175,9 +173,10 @@ export default function LoveLetterPage() {
                   <span className="text-gray-600 w-8 md:w-10 text-right mr-4 select-none flex-shrink-0">
                     {i + 1}
                   </span>
-                  <span className="text-gray-200 flex-1 whitespace-pre">
-                    {line || '\u00A0'}
-                  </span>
+                  <span
+                    className="text-gray-200 flex-1 whitespace-pre"
+                    dangerouslySetInnerHTML={{ __html: highlightCode(line || '\u00A0') }}
+                  />
                 </motion.div>
               ))}
               {isTyping && (
